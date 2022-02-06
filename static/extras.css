@@ -1,0 +1,40 @@
+.open-modal.extras {
+    font-size: 150%;
+    margin-top:5px;
+}
+
+.toggle-visualizer {
+    border:2px solid #222;
+    font-size:large;
+    width:60%;
+}
+
+@media (min-width: 550px) {
+    .toggle-visualizer {
+        width:80%;
+    }
+}
+
+.toggle-visualizer:hover,
+.toggle-visualizer:focus {
+    border:2px solid #222;
+}
+
+.toggle-visualizer.on {
+    background-color:rgb(67, 255, 92);
+}
+
+.toggle-visualizer.off {
+    background-color:rgb(255, 67, 67);
+}
+
+.tools-list {
+    margin-left:10px;
+    margin-right:10px;
+    text-align: left;
+}
+
+.columns.extras,
+.column.extras {
+    background-color:white;
+}

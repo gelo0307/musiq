@@ -1,0 +1,116 @@
+.player-area {
+    width:80%;
+    margin:auto;
+}
+
+@media (min-width: 550px) {
+    .player-area {
+        width:60%;
+    }
+}
+
+.player-label {
+    font-size: x-large;
+}
+
+.player {
+    width:100%;
+    border-width:4px;
+    border-style:solid;
+    color:#222;
+    border-radius:4px;
+    margin-top:1rem;
+    margin-bottom:1rem;
+    text-align: left;
+    padding:0px 10px;
+    font-size: x-large;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    -webkit-transition-property:background-color border-color color;
+    -moz-transition-property:background-color border-color color;
+    -o-transition-property:background-color border-color color;
+    transition-property:background-color border-color color;
+}
+
+.player1.player {
+    background-color:#F4ADC6;
+    border-color:#F4ADC6;
+}
+
+.player2.player {
+    background-color:#FDFD95;
+    border-color:#FDFD95;
+}
+
+.player3.player {
+    background-color:#7799CC;
+    border-color:#7799CC;
+}
+
+.player4.player {
+    background-color:#F69CC4;
+    border-color:#F69CC4;
+}
+
+.player.right {
+    background-color:rgb(67, 255, 92);
+    border-color:rgb(67, 255, 92);
+}
+
+.player.wrong {
+    background-color:rgb(255, 67, 67);
+    border-color:rgb(255, 67, 67);
+}
+
+.player.first-place {
+    background-color:rgb(255, 196, 0);
+    border-color:rgb(255, 196, 0);
+}
+
+/* adds medal emoji next to first places */
+.player.first-place > .player-name::after {
+    content:" \1F947";
+}
+
+.player.second-place {
+    background-color:silver;
+    border-color:silver;
+}
+
+.player.third-place {
+    background-color:#CD7F32;
+    border-color:#CD7F32;
+}
+
+.player.fourth-place {
+    background-color:#444;
+    border-color:#444;
+    color:white;
+}
+
+.player.answered > .player-name::after {
+    content:" \2714";
+}
+
+.player.wait-player {
+    background-color:black;
+    border-color:rgb(170, 170, 170);
+    color:rgb(170, 170, 170);
+}
+
+.player.wait-player.started {
+    display:none;
+}
+@media (min-width: 550px) {
+    .player.wait-player.started {
+        display:block;
+        opacity: 0.1;
+    }
+}
+
+.player-score {
+    float:right;
+    text-align: right;
+}

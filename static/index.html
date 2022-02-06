@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>MusiQ</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+
+    <!-- load Skeleton -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Load css files -->
+    <link href="/static/link.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/quiz.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/players.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/modal.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/extras.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/entry.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/timer.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/main.css" rel="stylesheet" type="text/css"/>
+
+    <!-- p5 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
+
+    <!-- socket io -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- progressbar -->
+    <script src="/static/progressbar.min.js"></script>
+  </head>
+
+  <body>
+
+    <!-- MODAL EXTRAS WINDOW -->
+    <div class="modal extras">
+      <div class="modal-inner extras">
+        <div class="modal-content extras">
+
+          <!-- Contents of Modal Extras Window -->
+          <div class="modal-content-inner">
+
+            <div class='row'>
+              <!-- SETTINGS -->
+              <div class='six columns extras'>
+                <h4><nobr></nobr>&#x1F527; Settings</nobr></h4>
+                <hr class="modal-buttons-seperator">
+                <div class='settings-area'>
+                  <span>Toggle Background Visualization:</span>
+                  <br>
+                  <button class='toggle-visualizer on'>ON</button>
+                </div>
+              </div>
+              <!-- TOOLS -->
+              <div class='six columns extras'>
+                <h4><nobr></nobr>&#x1F528; Tools</nobr></h4>
+                <hr class="modal-buttons-seperator">
+                <ul class='tools-list'>
+                  <li><a href='http://getskeleton.com/'>Skeleton.css</a></li>
+                  <li><a href='https://p5js.org/'>p5.js</a></li>
+                  <li><a href='https://progressbarjs.readthedocs.io/'>ProgressBar.js</a></li>
+                  <li><a href='https://nodejs.org/'>node.js</a></li>
+                  <li><a href='https://expressjs.com/'>Express.js</a></li>
+                  <li><a href='https://socket.io/'>socket.io</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Close Modal Button -->
+            <hr class="modal-buttons-seperator">
+            <div class="modal-buttons">
+              <button class="button close-modal extras button-primary">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+	  </div>
+
+    <!-- MODAL INPUT WINDOW -->
+    <div class="modal modal entry">
+      <div class="modal-inner entry">
+        <div class="modal-content entry">
+
+          <!-- Contents of Entry Modal -->
+          <div class="modal-content-inner">
+
+              <h5 class='entry-prompt'>Please enter your name:</h5>
+
+              <!-- input for entry -->
+              <input class='entry-input' type='text' maxlength="8">
+
+            <!-- Close Modal Button entry -->
+            <div class="modal-buttons">
+              <button class="button close-modal entry button-primary">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+	  </div>
+
+    <!-- MAIN PAGE -->
+    <div class='container'>
+      <div class='main'>
+        <div class='row'>
+
+          <!-- MULTIPLAYER COLUMN -->
+          <div class='three columns multiplayer-column'>
+            <h4><nobr>&#x1F389; Multiplayer</nobr></h4>
+            <hr class='primary-rule'></hr>
+            <div class='link-area'>
+              <p class='link-desc'>Play with your friends! The link below will allow others to join your game.</p>
+              <p>(Note: Maximum of 4 players per lobby.)</p>
+              <input type='text' class='multiplayer-link'>
+              <button class='copy-link link-button button-primary'>Copy Link</button>
+              <button class='new-lobby link-button button-primary'>New Lobby</button>
+            </div>
+            <!-- quiz buttons for testing -->
+            <button class='testing-button hide-quiz'>Hide Quiz</button>
+            <button class='testing-button show-quiz'>Show Quiz</button>
+            <button class='testing-button set-choices'>Set Choices</button>
+            <button class='testing-button judge-quiz'>Judge Quiz</button>
+            <button class='testing-button reset-quiz'>Reset Quiz</button>
+            <button class='testing-button show-start'>Show Start</button>
+            <button class='testing-button hide-start'>Hide Start</button>
+            <button class='testing-button start-timer'>Start Timer</button>
+            <button class='testing-button reset-timer'>Reset Timer</button>
+          </div>
+
+          <!-- GAME COLUMN -->
+          <div class='six columns game-column'>
+            <h1><span class='musi'>Musi</span><span class='q'>Q</span></h1>
+
+            <!-- QUIZ AREA -->
+            <div class='quiz-area'>
+                <span class='quiz-round'></span>
+                <br>
+                <span class='quiz-score-line'>Your Score: <span class='quiz-score'>0</span></span>
+                <br>
+                <span class='quiz-prompt'>&nbsp;</span>
+                <div class='quiz-buttons'>
+                  <button class='start-button button-primary'>START</button>
+                  <button class='quiz-button button-primary hidden'>Option 1</button>
+                  <button class='quiz-button button-primary hidden'>Option 2</button>
+                  <button class='quiz-button button-primary hidden'>Option 3</button>
+                  <button class='quiz-button button-primary hidden'>Option 4</button>
+                </div>
+            </div>
+
+            <!-- <hr class='primary-rule'></hr> -->
+            <div class='timer'></div>
+
+            <!-- PLAYER AREA -->
+            <div class='player-area'>
+              <span class='player-label'>Players:</span>
+              <div id='' class='player wait-player player1'>
+                <span class='player-name'>Empty</span>
+                <span class='player-score'>-</span>
+              </div>
+              <div class='player wait-player player2'>
+                <span class='player-name'>Empty</span>
+                <span class='player-score'>-</span>
+              </div>
+              <div class='player wait-player player3'>
+                <span class='player-name'>Empty</span>
+                <span class='player-score'>-</span>
+              </div>
+              <div class='player wait-player player4'>
+                <span class='player-name'>Empty</span>
+                <span class='player-score'>-</span>
+              </div>
+              <!-- player buttons for testing -->
+              <button class='testing-button add-players'>Add Players</button>
+              <button class='testing-button start-game'>Start Game</button>
+              <button class='testing-button judge-players'>Judge Players</button>
+              <button class='testing-button place-players'>Place Players</button>
+              <button class='testing-button reset-players'>Reset Players</button>
+            </div>
+          </div>
+
+          <!-- INSTRUCTIONS COLUMN -->
+          <div class='three columns instructions-column'>
+            <h4><nobr>&#x1F4CB; Instructions</nobr></h4>
+            <hr class="primary-rule">
+            <p class='instruct-desc'>Send your multiplayer link to others so they can join your game. Then hit the start button and the game will begin!
+              There are 10 rounds in a game and each correct answer is worth 1 point. Good Luck!</p>
+            <p>(Note: this game requires audio for you to play it! Please ensure this browser tab is not muted.)</p>
+            <!-- button for testing entry modal -->
+            <button class='testing-button open-modal entry'>Change Name</button>
+          </div>
+        </div>
+      </div>
+      <div class='footer row'>
+        <button class ='open-modal extras'>&#9881;</button>
+        <br>
+        <span>Created by | 
+          <a href="https://github.com/TrifectaIII">@TrifectaIII</a> | 
+          <a href="https://github.com/jxchen26">@jxchen26</a> | 
+          <a href="https://github.com/adoanha">@adoanha</a> |
+          <br>
+          An <a href="https://repl.it/talk/challenge/MusiQ/16915">entry</a> for the <a href="https://repl.it/">repl.it</a> 
+          <a href="https://repl.it/talk/challenge/THE-THEME-IS-MUSIC-WIN-dollar
+          5000-Were-having-another-competition/16017">Music Jam</a>
+        </span>
+        <br>
+        <a href="https://github.com/TrifectaIII/MusiQ">GitHub</a>
+      </div>
+    </div>
+
+    <!-- load js files -->
+    <script src="/static/visualizer.js"></script>
+    <script src="/static/timer.js"></script>
+    <script src="/static/link.js"></script>
+    <script src="/static/quiz.js"></script>
+    <script src="/static/players.js"></script>
+    <script src="/static/extras.js"></script>
+    <script src="/static/entry.js"></script>
+    <script src="/static/main.js"></script>
+  </body>
+</html>
